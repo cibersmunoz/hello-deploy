@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recon</title>
+</head>
+<body>
+    <form>
+        <label for="target">Target:</label>
+        <input type="text" id="target" name="target" required>
+        <button type="submit">Submit</button>
+    </form>
+<script>
+    const button = document.querySelector('button');
+    button.addEventListener('click', function(event){
+        event.preventDefault(); 
+        console.log("Hiciste click socio")
+    });
+    fetch('http://localhost:3000/recon', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                domain: 'example.com',
+                APIKEY: '1234'
+            })
+        })
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+</script>
+</body>
+</html>
