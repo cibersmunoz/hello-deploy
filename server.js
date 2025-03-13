@@ -5,8 +5,7 @@ const session = require("express-session");
 const express = require("express");
 const app = express();
 const exec = require("child_process").exec;
-
-
+app.use(express.static("public"));
 const CLIENT_ID_GITHUB = process.env.CLIENT_ID_GITHUB;
 const CLIENT_SECRET_GITHUB = process.env.CLIENT_SECRET_GITHUB;
 const APIKEY = process.env.APIKEY;
