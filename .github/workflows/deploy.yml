@@ -1,0 +1,28 @@
+name: Deploy en VPS
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            # Define entorno, y clona el repo en el VPS de stagging
+            - name: Checkout code
+              uses: actions/checkout@v2
+            # Instalamos sshpass
+            - name: Install sshpass
+              run: sudo apt-get install sshpass -y
+            # Creamos la carpeta .ssh
+            - name: Create .ssh directory
+              run: mkdir -p ~/.ssh  
+            # Añadimos el host a known_hosts
+            - name: Add remote host to known_hosts
+              run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+            - name: Execute command on VPS
+              env: 
+                SSHPASS: ${{ secrets.SSH_PASSWORD }}
+              run: sshpass -e ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "pm2 stop web && cd hello-deploy && git pull && npm i && pm2 start web &"
