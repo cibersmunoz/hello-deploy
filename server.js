@@ -68,7 +68,7 @@ app.get("/auth/github",
 app.get("/auth/github/callback", passport.authenticate('github', { failureRedirect: '/' }),
     (req, res) => {
         console.log("User authenticated successfully");
-        res.redirect("/profile");
+        res.redirect("/recon.html");
     }
 );
 
@@ -78,8 +78,7 @@ app.get("/profile", middlewareAuth, (req, res) => {
 })
 
 app.get("/recon", middlewareAuth, (req, res) => {
-    const html = `aqui ira mi recon`
-    res.send(html)
+    res.sendFile(__dirname + "/public/recon");
 })
 
 app.get("/run-command", middlewareAuth, (req, res) => {

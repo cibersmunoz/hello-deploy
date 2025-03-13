@@ -15,22 +15,23 @@
     const button = document.querySelector('button');
     button.addEventListener('click', function(event){
         event.preventDefault(); 
-        console.log("Hiciste click socio")
-    });
-    fetch('http://localhost:3000/recon', {
+        console.log("Hiciste click socio");
+        const domain = document.getElementById('target').value;
+        fetch('http://localhost:3000/recon', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                domain: 'example.com',
+                domain: domain,
                 APIKEY: '1234'
             })
         })
             .then(response => response.text())
             .then(data => console.log(data))
             .catch(error => console.error('Error:', error));
+        })
 </script>
 </body>
 </html>
