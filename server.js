@@ -15,7 +15,7 @@ console.log(`CLIENT_SECRET_GITHUB: ${CLIENT_SECRET_GITHUB}`);
 passport.use(new GithubStrategy({
     clientID: CLIENT_ID_GITHUB,
     clientSecret: CLIENT_SECRET_GITHUB,
-    callbackURL: "http://localhost:3000/auth/github/callback",
+    callbackURL: "http://172.233.109.28:3000/auth/github/callback",
 }, function (accessToken, refreshToken, profile, done) {
     if (profile.username === 'cibersmunoz') {
         return done(null, profile);  // ✅ Acceso permitido
