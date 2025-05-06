@@ -17,9 +17,13 @@ passport.use(new GithubStrategy({
     clientSecret: CLIENT_SECRET_GITHUB,
     callbackURL: "http://localhost:3000/auth/github/callback",
 }, function (accessToken, refreshToken, profile, done) {
-    console.log("Profile: ", profile);
-    return done(null, profile);
-}));
+    if (profile.username === 'tu_usuario_github') {
+        return done(null, profile);  // ✅ Acceso permitido
+      } else {
+        return done(null, false);    // ❌ Denegado
+      }
+    }
+  ));
 
 passport.serializeUser((user, done) => {
     console.log("Serializing user:", user);
